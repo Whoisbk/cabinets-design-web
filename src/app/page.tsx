@@ -47,15 +47,15 @@ export default function HomePage() {
     console.log(formData)
 
     try {
-      emailjs.sendForm("service_s6zpjwb", "template_3lltuyr", event.currentTarget, "m9mEOlb4m_-sPGt-b")
-       .then(() => {
-        setSendMessage("Message Sent Successfully")
-        
-       }, (error) => {
-         console.log(error.text);
-         setSendError("Something went wrong!")
-         
-       });
+      emailjs.sendForm(process.env.EMAILJS_SERVICE_ID ?? "", process.env.EMAILJS_TEMPLATE_ID ?? "", event.currentTarget, process.env.EMAILJS_PUBLIC_KEY ?? "")
+        .then(() => {
+          setSendMessage("Message Sent Successfully")
+
+        }, (error) => {
+          console.log(error.text);
+          setSendError("Something went wrong!")
+
+        });
     } catch (error) {
       console.log(error)
       setSendError("Network error. Please try again later.")
