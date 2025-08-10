@@ -30,7 +30,39 @@ import LivingRoom from "../../public/images/living-room-cabinets.jpg"
 import KitchenCabinets from "../../public/images/custom-cabinets.jpg"
 import Ceiling from "../../public/images/Cieling.jpg"
 import CustomWardrobe from "../../public/images/custome-room.jpg"
+import { useState } from "react"
+import emailjs from 'emailjs-com';
 export default function HomePage() {
+  const [isSending, setIsSending] = useState(false)
+  const [sendMessage, setSendMessage] = useState<string | null>(null)
+  const [sendError, setSendError] = useState<string | null>(null)
+
+  async function handleContactSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+    setIsSending(true)
+    setSendMessage(null)
+    setSendError(null)
+
+    const formData = new FormData(event.currentTarget)
+    console.log(formData)
+
+    try {
+      emailjs.sendForm("service_s6zpjwb", "template_3lltuyr", event.currentTarget, "m9mEOlb4m_-sPGt-b")
+       .then((result) => {
+        setSendMessage("Message Sent Successfully")
+        
+       }, (error) => {
+         console.log(error.text);
+         setSendError("Something went wrong!")
+         
+       });
+    } catch (error) {
+      console.log(error)
+      setSendError("Network error. Please try again later.")
+    } finally {
+      setIsSending(false)
+    }
+  }
   return (
     <div className="min-h-screen bg-white flex flex-col items-center">
       {/* Header */}
@@ -68,7 +100,7 @@ export default function HomePage() {
                   Premium Home Renovation
                 </Badge>
                 <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
-                  Transform Your
+                  Transform Your{" "}
                   <span className="text-orange-600 block">Dream Home</span>
                 </h1>
                 <p className="text-xl text-gray-600 max-w-[600px]">
@@ -86,17 +118,17 @@ export default function HomePage() {
               </div>
               <div className="flex items-center gap-8 pt-4">
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-gray-900">500+</div>
+                  <div className="text-2xl font-bold text-gray-900">30+</div>
                   <div className="text-sm text-gray-600">Projects Completed</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-gray-900">15+</div>
+                  <div className="text-2xl font-bold text-gray-900">5+</div>
                   <div className="text-sm text-gray-600">Years Experience</div>
                 </div>
                 <div className="text-center">
                   <div className="flex items-center gap-1">
                     <Star className="h-5 w-5 fill-yellow-400 text-yellow-400" />
-                    <span className="text-2xl font-bold text-gray-900">4.9</span>
+                    <span className="text-2xl font-bold text-gray-900">5</span>
                   </div>
                   <div className="text-sm text-gray-600">Customer Rating</div>
                 </div>
@@ -602,7 +634,7 @@ export default function HomePage() {
               />
               <div className="absolute -top-6 -right-6 bg-orange-600 text-white p-6 rounded-xl shadow-lg">
                 <div className="text-center">
-                  <div className="text-3xl font-bold">15+</div>
+                  <div className="text-3xl font-bold">5+</div>
                   <div className="text-sm">Years of Excellence</div>
                 </div>
               </div>
@@ -628,38 +660,38 @@ export default function HomePage() {
             <div className="space-y-8">
               <Card className="p-6">
                 <h3 className="text-xl font-semibold mb-6">Send us a message</h3>
-                <form className="space-y-4">
+                <form className="space-y-4" onSubmit={handleContactSubmit}>
                   <div className="grid grid-cols-2 gap-4">
                     <div>
                       <label htmlFor="firstName" className="block text-sm font-medium mb-2">
                         First Name
                       </label>
-                      <Input id="firstName" placeholder="John" />
+                      <Input id="firstName" name="firstName" placeholder="John" required />
                     </div>
                     <div>
                       <label htmlFor="lastName" className="block text-sm font-medium mb-2">
                         Last Name
                       </label>
-                      <Input id="lastName" placeholder="Doe" />
+                      <Input id="lastName" name="lastName" placeholder="Doe" required />
                     </div>
                   </div>
                   <div>
                     <label htmlFor="email" className="block text-sm font-medium mb-2">
                       Email
                     </label>
-                    <Input id="email" type="email" placeholder="john@example.com" />
+                    <Input id="email" name="email" type="email" placeholder="john@example.com" required />
                   </div>
                   <div>
                     <label htmlFor="phone" className="block text-sm font-medium mb-2">
                       Phone Number
                     </label>
-                    <Input id="phone" type="tel" placeholder="(555) 123-4567" />
+                    <Input id="phone" name="phone" type="tel" placeholder="079 188 7495" />
                   </div>
                   <div>
                     <label htmlFor="service" className="block text-sm font-medium mb-2">
                       Service Interested In
                     </label>
-                    <select className="w-full p-3 border border-gray-300 rounded-md">
+                    <select id="service" name="service" className="w-full p-3 border border-gray-300 rounded-md">
                       <option>Select a service</option>
                       <option>Floor Tiles</option>
                       <option>Ceiling Installation</option>
@@ -672,9 +704,17 @@ export default function HomePage() {
                     <label htmlFor="message" className="block text-sm font-medium mb-2">
                       Project Details
                     </label>
-                    <Textarea id="message" placeholder="Tell us about your project..." className="min-h-[120px]" />
+                    <Textarea id="message" name="message" placeholder="Tell us about your project..." className="min-h-[120px]" required />
                   </div>
-                  <Button className="w-full bg-orange-600 hover:bg-orange-700">Send Message</Button>
+                  <Button type="submit" disabled={isSending} className="w-full bg-orange-600 hover:bg-orange-700">
+                    {isSending ? "Sending..." : "Send Message"}
+                  </Button>
+                  {sendMessage && (
+                    <p className="text-green-600 text-sm" role="status">{sendMessage}</p>
+                  )}
+                  {sendError && (
+                    <p className="text-red-600 text-sm" role="alert">{sendError}</p>
+                  )}
                 </form>
               </Card>
             </div>
@@ -689,7 +729,7 @@ export default function HomePage() {
                     </div>
                     <div>
                       <div className="font-medium">Phone</div>
-                      <div className="text-gray-600">(555) 123-4567</div>
+                      <div className="text-gray-600">079 188 7495</div>
                     </div>
                   </div>
                   <div className="flex items-center gap-4">
@@ -739,17 +779,13 @@ export default function HomePage() {
                 </ul>
               </Card>
 
-              <div className="text-center p-6 bg-orange-600 text-white rounded-xl">
-                <h4 className="font-semibold text-lg mb-2">Emergency Services Available</h4>
-                <p className="text-orange-100 mb-4">24/7 emergency renovation services for urgent repairs</p>
-                <Button variant="secondary" className="bg-white text-orange-600 hover:bg-gray-100">
-                  Call Emergency Line
-                </Button>
-              </div>
+
             </div>
           </div>
         </div>
       </section>
+
+
 
       {/* Footer */}
       <footer className="bg-gray-900 text-white py-12 w-full flex justify-center">
@@ -831,10 +867,10 @@ export default function HomePage() {
             <div>
               <h4 className="font-semibold mb-4">Contact</h4>
               <ul className="space-y-2 text-sm text-gray-400">
-                <li>(555) 123-4567</li>
+                <li>079 188 7495</li>
                 <li>info@renovatepro.com</li>
                 <li>123 Renovation St</li>
-                <li>City, State 12345</li>
+                <li>Johannesburg, South Africa</li>
               </ul>
             </div>
           </div>
