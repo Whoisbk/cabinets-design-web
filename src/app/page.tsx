@@ -48,7 +48,7 @@ export default function HomePage() {
 
     try {
       emailjs.sendForm("service_s6zpjwb", "template_3lltuyr", event.currentTarget, "m9mEOlb4m_-sPGt-b")
-       .then((result) => {
+       .then(() => {
         setSendMessage("Message Sent Successfully")
         
        }, (error) => {

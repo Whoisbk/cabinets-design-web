@@ -50,7 +50,7 @@ export async function POST(req: Request) {
       success: true,
       message: "Thank you! Your message has been received.",
     });
-  } catch (err: any) {
+  } catch (err: unknown) {
     console.error("Error:", err);
     return NextResponse.json(
       { error: "Something went wrong. Please try again." },
