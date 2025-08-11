@@ -70,7 +70,7 @@ export default function HomePage() {
         <div className="container flex h-16 items-center justify-between px-4 md:px-6">
           <div className="flex items-center space-x-2">
             <Home className="h-8 w-8 text-orange-600" />
-            <span className="text-xl font-bold text-gray-900">Mbalangani <span className="text-orange-600">Interiors & Renovations</span></span>
+            <span className="text-xl font-bold text-gray-900">Mbalagani <span className="text-orange-600">Interiors & Renovations</span></span>
           </div>
           <nav className="hidden md:flex items-center space-x-6">
             <Link href="#services" className="text-sm font-medium hover:text-orange-600 transition-colors">
@@ -564,13 +564,13 @@ export default function HomePage() {
             <div className="space-y-8">
               <div className="space-y-4">
                 <Badge variant="outline" className="text-orange-600 border-orange-600">
-                  About Mbalangani Interiors & Renovations
+                  About Mbalagani Interiors & Renovations
                 </Badge>
                 <h2 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
                   Crafting Beautiful Homes Since 2008
                 </h2>
                 <p className="text-lg text-gray-600">
-                  With over 15 years of experience in home renovation, Mbalangani Interiors & Renovations has established itself as the premier
+                  With over 15 years of experience in home renovation, Mbalagani Interiors & Renovations has established itself as the premier
                   choice for homeowners seeking quality craftsmanship and exceptional service.
                 </p>
                 <p className="text-gray-600">
@@ -727,7 +727,7 @@ export default function HomePage() {
                     </div>
                     <div>
                       <div className="font-medium">Email</div>
-                      <div className="text-gray-600">mbalangani2@gmail.com</div>
+                      <div className="text-gray-600">Mbalagani2@gmail.com</div>
                     </div>
                   </div>
                   <div className="flex items-center gap-4">
@@ -743,7 +743,7 @@ export default function HomePage() {
               </div>
 
               <Card className="p-6 bg-orange-50 border-orange-200">
-                <h4 className="font-semibold text-lg mb-4">Why Choose Mbalangani Interiors & Renovations?</h4>
+                <h4 className="font-semibold text-lg mb-4">Why Choose Mbalagani Interiors & Renovations?</h4>
                 <ul className="space-y-3">
                   <li className="flex items-center gap-3">
                     <CheckCircle className="h-5 w-5 text-orange-600" />
@@ -780,7 +780,7 @@ export default function HomePage() {
             <div className="space-y-4">
               <div className="flex items-center space-x-2">
                 <Home className="h-8 w-8 text-orange-600" />
-                <span className="text-xl font-bold">Mbalangani Interiors & Renovations</span>
+                <span className="text-xl font-bold">Mbalagani Interiors & Renovations</span>
               </div>
               <p className="text-gray-400 text-sm">
                 Transforming homes with expert craftsmanship in floor tiles, ceilings, wardrobes, and kitchen cabinets.
@@ -830,7 +830,7 @@ export default function HomePage() {
               <h4 className="font-semibold mb-4">Contact</h4>
               <ul className="space-y-2 text-sm text-gray-400">
                 <li><Link href="tel:0791887495" className="hover:text-white transition-colors">079 188 7495</Link></li>
-                <li><Link href="mailto:mbalangani2@gmail.com" className="hover:text-white transition-colors">mbalangani2@gmail.com</Link></li>
+                <li><Link href="mailto:Mbalagani2@gmail.com" className="hover:text-white transition-colors">Mbalagani2@gmail.com</Link></li>
                 <li><Link href="https://maps.app.goo.gl/3949maripani" className="hover:text-white transition-colors">3949 maripani street</Link></li>
               </ul>
             </div>
@@ -838,7 +838,7 @@ export default function HomePage() {
 
           <div className="border-t border-gray-800 mt-8 pt-8 text-center text-sm text-gray-400">
             <p>
-              &copy; {new Date().getFullYear()} Mbalangani Interiors & Renovations. All rights reserved. | Privacy Policy
+              &copy; {new Date().getFullYear()} Mbalagani Interiors & Renovations. All rights reserved. | Privacy Policy
               | Terms of Service
             </p>
           </div>
