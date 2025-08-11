@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Mbalangane Interiors & Renovations",
   description: "Expert craftsmanship in floor tiles, ceilings, custom wardrobes, and kitchen cabinets.",
 };
