@@ -4,7 +4,7 @@ import "./globals.css";
 import emailjs from '@emailjs/browser';
 import { Bounce, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import CabinetsHero from "../../public/images/cabinets-1.jpg"
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -16,10 +16,14 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Mbalangane Interiors & Renovations",
+  title: "Mbalagani Interiors & Renovations",
   description: "Expert craftsmanship in floor tiles, ceilings, custom wardrobes, and kitchen cabinets.",
-  icons: {
-    icon: "/favicon.ico",
+  openGraph: {
+    url: "https://mbalaganiinteriors.vercel.app",
+    images: [CabinetsHero.src],
+    title: "Mbalagani Interiors & Renovations",
+    description: "Expert craftsmanship in floor tiles, ceilings, custom wardrobes, and kitchen cabinets.",
+    siteName: "Mbalagani Interiors & Renovations",
   },
 };
 emailjs.init("m9mEOlb4m_-sPGt-b");
