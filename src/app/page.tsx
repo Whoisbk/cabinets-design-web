@@ -16,7 +16,6 @@ import {
   Palette,
   ChefHat,
   Clock,
-  Shield,
   Award,
   Users,
 } from "lucide-react"
@@ -32,6 +31,7 @@ import Ceiling from "../../public/images/Cieling.jpg"
 import CustomWardrobe from "../../public/images/custome-room.jpg"
 import { useState } from "react"
 import emailjs from 'emailjs-com';
+import { toast } from "react-toastify"
 export default function HomePage() {
   const [isSending, setIsSending] = useState(false)
   const [sendMessage, setSendMessage] = useState<string | null>(null)
@@ -43,22 +43,22 @@ export default function HomePage() {
     setSendMessage(null)
     setSendError(null)
 
-    const formData = new FormData(event.currentTarget)
-    console.log(formData)
-
     try {
-      emailjs.sendForm("service_s6zpjwb", "template_3lltuyr", event.currentTarget, "m9mEOlb4m_-sPGt-b")
-       .then(() => {
-        setSendMessage("Message Sent Successfully")
-        
-       }, (error) => {
-         console.log(error.text);
-         setSendError("Something went wrong!")
-         
-       });
+      await emailjs.sendForm(
+        process.env.EMAILJS_SERVICE_ID ?? "",
+        process.env.EMAILJS_TEMPLATE_ID ?? "",
+        event.currentTarget,
+        process.env.EMAILJS_PUBLIC_KEY ?? ""
+      )
+
+      // setSendMessage("Message Sent Successfully")
+      toast.success("Message Sent Successfully")
+      // Reset form after successful submission
+
     } catch (error) {
       console.log(error)
-      setSendError("Network error. Please try again later.")
+      // setSendError("Something went wrong! Please try again.")
+      toast.error("Something went wrong! Please try again.")
     } finally {
       setIsSending(false)
     }
@@ -70,7 +70,7 @@ export default function HomePage() {
         <div className="container flex h-16 items-center justify-between px-4 md:px-6">
           <div className="flex items-center space-x-2">
             <Home className="h-8 w-8 text-orange-600" />
-            <span className="text-xl font-bold text-gray-900">RenovatePro</span>
+            <span className="text-xl font-bold text-gray-900">Mbalangani <span className="text-orange-600">Interiors & Renovations</span></span>
           </div>
           <nav className="hidden md:flex items-center space-x-6">
             <Link href="#services" className="text-sm font-medium hover:text-orange-600 transition-colors">
@@ -86,7 +86,9 @@ export default function HomePage() {
               Contact
             </Link>
           </nav>
-          <Button className="bg-orange-600 hover:bg-orange-700">Get Quote</Button>
+          <Button asChild className="bg-orange-600 hover:bg-orange-700">
+            <Link href="#contact">Get Quote</Link>
+          </Button>
         </div>
       </header>
 
@@ -109,11 +111,11 @@ export default function HomePage() {
                 </p>
               </div>
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button size="lg" className="bg-orange-600 hover:bg-orange-700 text-lg px-8">
-                  Start Your Project
+                <Button asChild size="lg" className="bg-orange-600 hover:bg-orange-700 text-lg px-8">
+                  <Link href="#contact">Start Your Project</Link>
                 </Button>
-                <Button size="lg" variant="outline" className="text-lg px-8">
-                  View Our Work
+                <Button asChild size="lg" variant="outline" className="text-lg px-8">
+                  <Link href="#portfolio">View Our Work</Link>
                 </Button>
               </div>
               <div className="flex items-center gap-8 pt-4">
@@ -147,7 +149,7 @@ export default function HomePage() {
                   <CheckCircle className="h-8 w-8 text-green-500" />
                   <div>
                     <div className="font-semibold">Quality Guaranteed</div>
-                    <div className="text-sm text-gray-600">Licensed & Insured</div>
+
                   </div>
                 </div>
               </div>
@@ -487,16 +489,16 @@ export default function HomePage() {
                     </div>
                   </div>
                   <CardContent className="p-6">
-                    <h3 className="font-semibold text-lg mb-2">Herringbone Pattern Floor</h3>
-                    <p className="text-gray-600 text-sm">Premium porcelain tiles in custom herringbone pattern</p>
+                    <h3 className="font-semibold text-lg mb-2">Luxury Built-In Walk-In Closet</h3>
+                    <p className="text-gray-600 text-sm">Experience refined storage with this custom-built walk-in closet. </p>
                   </CardContent>
                 </Card>
               </DialogTrigger>
               <DialogContent className="max-w-5xl w-[95vw] max-h-[95vh] p-0 overflow-hidden">
                 <DialogHeader className="p-4 pb-2">
-                  <DialogTitle>Herringbone Pattern Floor</DialogTitle>
+                  <DialogTitle>Luxury Built-In Walk-In Closet</DialogTitle>
                   <DialogDescription>
-                    Premium porcelain tiles in custom herringbone pattern
+                    Experience refined storage with this custom-built walk-in closet.
                   </DialogDescription>
                 </DialogHeader>
                 <div className="p-4 pt-0 overflow-auto">
@@ -527,16 +529,16 @@ export default function HomePage() {
                     </div>
                   </div>
                   <CardContent className="p-6">
-                    <h3 className="font-semibold text-lg mb-2">Complete Home Transformation</h3>
-                    <p className="text-gray-600 text-sm">Full home renovation including all our specialty services</p>
+                    <h3 className="font-semibold text-lg mb-2">Modern Floating TV Unit with Accent Wall</h3>
+                    <p className="text-gray-600 text-sm">This sleek floating TV unit combines clean, modern lines with practical storage</p>
                   </CardContent>
                 </Card>
               </DialogTrigger>
               <DialogContent className="max-w-5xl w-[95vw] max-h-[95vh] p-0 overflow-hidden">
                 <DialogHeader className="p-4 pb-2">
-                  <DialogTitle>Complete Home Transformation</DialogTitle>
+                  <DialogTitle>Modern Floating TV Unit with Accent Wall</DialogTitle>
                   <DialogDescription>
-                    Full home renovation including all our specialty services
+                    This sleek floating TV unit combines clean, modern lines with practical storage
                   </DialogDescription>
                 </DialogHeader>
                 <div className="p-4 pt-0 overflow-auto">
@@ -552,11 +554,6 @@ export default function HomePage() {
             </Dialog>
           </div>
 
-          <div className="text-center mt-12">
-            <Button size="lg" variant="outline" className="text-orange-600 border-orange-600 hover:bg-orange-50">
-              View All Projects
-            </Button>
-          </div>
         </div>
       </section>
 
@@ -567,13 +564,13 @@ export default function HomePage() {
             <div className="space-y-8">
               <div className="space-y-4">
                 <Badge variant="outline" className="text-orange-600 border-orange-600">
-                  About RenovatePro
+                  About Mbalangani Interiors & Renovations
                 </Badge>
                 <h2 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
                   Crafting Beautiful Homes Since 2008
                 </h2>
                 <p className="text-lg text-gray-600">
-                  With over 15 years of experience in home renovation, RenovatePro has established itself as the premier
+                  With over 15 years of experience in home renovation, Mbalangani Interiors & Renovations has established itself as the premier
                   choice for homeowners seeking quality craftsmanship and exceptional service.
                 </p>
                 <p className="text-gray-600">
@@ -594,15 +591,7 @@ export default function HomePage() {
                     <div className="text-sm text-gray-600">Every project completed as promised</div>
                   </div>
                 </div>
-                <div className="flex items-center gap-3">
-                  <div className="p-2 bg-orange-100 rounded-lg">
-                    <Shield className="h-6 w-6 text-orange-600" />
-                  </div>
-                  <div>
-                    <div className="font-semibold">Licensed & Insured</div>
-                    <div className="text-sm text-gray-600">Full protection for your peace of mind</div>
-                  </div>
-                </div>
+
                 <div className="flex items-center gap-3">
                   <div className="p-2 bg-orange-100 rounded-lg">
                     <Award className="h-6 w-6 text-orange-600" />
@@ -738,7 +727,7 @@ export default function HomePage() {
                     </div>
                     <div>
                       <div className="font-medium">Email</div>
-                      <div className="text-gray-600">info@renovatepro.com</div>
+                      <div className="text-gray-600">mbalangani2@gmail.com</div>
                     </div>
                   </div>
                   <div className="flex items-center gap-4">
@@ -747,23 +736,20 @@ export default function HomePage() {
                     </div>
                     <div>
                       <div className="font-medium">Address</div>
-                      <div className="text-gray-600">123 Renovation St, City, State 12345</div>
+                      <div className="text-gray-600">3949 maripani street</div>
                     </div>
                   </div>
                 </div>
               </div>
 
               <Card className="p-6 bg-orange-50 border-orange-200">
-                <h4 className="font-semibold text-lg mb-4">Why Choose RenovatePro?</h4>
+                <h4 className="font-semibold text-lg mb-4">Why Choose Mbalangani Interiors & Renovations?</h4>
                 <ul className="space-y-3">
                   <li className="flex items-center gap-3">
                     <CheckCircle className="h-5 w-5 text-orange-600" />
                     <span className="text-sm">Free consultation and detailed quotes</span>
                   </li>
-                  <li className="flex items-center gap-3">
-                    <CheckCircle className="h-5 w-5 text-orange-600" />
-                    <span className="text-sm">Licensed, bonded, and insured</span>
-                  </li>
+
                   <li className="flex items-center gap-3">
                     <CheckCircle className="h-5 w-5 text-orange-600" />
                     <span className="text-sm">5-year warranty on all work</span>
@@ -794,21 +780,21 @@ export default function HomePage() {
             <div className="space-y-4">
               <div className="flex items-center space-x-2">
                 <Home className="h-8 w-8 text-orange-600" />
-                <span className="text-xl font-bold">RenovatePro</span>
+                <span className="text-xl font-bold">Mbalangani Interiors & Renovations</span>
               </div>
               <p className="text-gray-400 text-sm">
                 Transforming homes with expert craftsmanship in floor tiles, ceilings, wardrobes, and kitchen cabinets.
               </p>
               <div className="flex space-x-4">
-                <div className="w-8 h-8 bg-gray-800 rounded-full flex items-center justify-center hover:bg-orange-600 transition-colors cursor-pointer">
+                <Link href="https://www.facebook.com/tebogo.tebza.1650" className="w-8 h-8 bg-gray-800 rounded-full flex items-center justify-center hover:bg-orange-600 transition-colors cursor-pointer">
                   <span className="text-xs">f</span>
-                </div>
-                <div className="w-8 h-8 bg-gray-800 rounded-full flex items-center justify-center hover:bg-orange-600 transition-colors cursor-pointer">
+                </Link>
+                {/* <div className="w-8 h-8 bg-gray-800 rounded-full flex items-center justify-center hover:bg-orange-600 transition-colors cursor-pointer">
                   <span className="text-xs">t</span>
                 </div>
                 <div className="w-8 h-8 bg-gray-800 rounded-full flex items-center justify-center hover:bg-orange-600 transition-colors cursor-pointer">
                   <span className="text-xs">in</span>
-                </div>
+                </div> */}
               </div>
             </div>
 
@@ -816,68 +802,43 @@ export default function HomePage() {
               <h4 className="font-semibold mb-4">Services</h4>
               <ul className="space-y-2 text-sm text-gray-400">
                 <li>
-                  <Link href="#" className="hover:text-white transition-colors">
+                  <Link href="#portfolio" className="hover:text-white transition-colors">
                     Floor Tiles
                   </Link>
                 </li>
                 <li>
-                  <Link href="#" className="hover:text-white transition-colors">
+                  <Link href="#portfolio" className="hover:text-white transition-colors">
                     Ceiling Installation
                   </Link>
                 </li>
                 <li>
-                  <Link href="#" className="hover:text-white transition-colors">
+                  <Link href="#portfolio" className="hover:text-white transition-colors">
                     Custom Wardrobes
                   </Link>
                 </li>
                 <li>
-                  <Link href="#" className="hover:text-white transition-colors">
+                  <Link href="#portfolio" className="hover:text-white transition-colors">
                     Kitchen Cabinets
                   </Link>
                 </li>
               </ul>
             </div>
 
-            <div>
-              <h4 className="font-semibold mb-4">Company</h4>
-              <ul className="space-y-2 text-sm text-gray-400">
-                <li>
-                  <Link href="#" className="hover:text-white transition-colors">
-                    About Us
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="hover:text-white transition-colors">
-                    Our Team
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="hover:text-white transition-colors">
-                    Careers
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="hover:text-white transition-colors">
-                    Reviews
-                  </Link>
-                </li>
-              </ul>
-            </div>
+
 
             <div>
               <h4 className="font-semibold mb-4">Contact</h4>
               <ul className="space-y-2 text-sm text-gray-400">
-                <li>079 188 7495</li>
-                <li>info@renovatepro.com</li>
-                <li>123 Renovation St</li>
-                <li>Johannesburg, South Africa</li>
+                <li><Link href="tel:0791887495" className="hover:text-white transition-colors">079 188 7495</Link></li>
+                <li><Link href="mailto:mbalangani2@gmail.com" className="hover:text-white transition-colors">mbalangani2@gmail.com</Link></li>
+                <li><Link href="https://maps.app.goo.gl/3949maripani" className="hover:text-white transition-colors">3949 maripani street</Link></li>
               </ul>
             </div>
           </div>
 
           <div className="border-t border-gray-800 mt-8 pt-8 text-center text-sm text-gray-400">
             <p>
-              &copy; {new Date().getFullYear()} RenovatePro. All rights reserved. | Licensed & Insured | Privacy Policy
+              &copy; {new Date().getFullYear()} Mbalangani Interiors & Renovations. All rights reserved. | Privacy Policy
               | Terms of Service
             </p>
           </div>
