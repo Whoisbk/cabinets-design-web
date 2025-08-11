@@ -18,6 +18,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Mbalangane Interiors & Renovations",
   description: "Expert craftsmanship in floor tiles, ceilings, custom wardrobes, and kitchen cabinets.",
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 emailjs.init("m9mEOlb4m_-sPGt-b");
 
