@@ -25,6 +25,13 @@ export const metadata: Metadata = {
     description: "Expert craftsmanship in floor tiles, ceilings, custom wardrobes, and kitchen cabinets.",
     siteName: "Mbalagani Interiors & Renovations",
   },
+  robots: {
+    index: true,
+    follow: true,
+  },
+  alternates: {
+    canonical: "https://mbalaganiinteriors.vercel.app",
+  },
 };
 emailjs.init("m9mEOlb4m_-sPGt-b");
 
